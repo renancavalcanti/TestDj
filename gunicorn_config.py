@@ -13,6 +13,6 @@ timeout = 300
 """
 
 gunicorn --worker-tmp-dir /dev/shm --config gunicorn_config.py app:app
-gunicorn --config gunicorn_config.py TaskManager.wsgi:application
+gunicorn --worker-tmp-dir /dev/shm --config gunicorn_config.py TaskManager.wsgi.application
 
 """

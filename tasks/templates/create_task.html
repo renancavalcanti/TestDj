@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Nova Tarefa</title>
+</head>
+<body>
+    <h1>Criar Nova Tarefa</h1>
+    <form method="post" action="{% url 'create_task' %}">
+        {% csrf_token %}
+        <label for="description">Descrição:</label>
+        <input type="text" name="description" id="description" required>
+        <br>
+        <label for="assigned_to">Atribuir a:</label>
+        <input type="text" name="assigned_to" id="assigned_to" required>
+        <br>
+        <button type="submit">Criar Tarefa</button>
+    </form>
+    <a href="{% url 'tasks' %}">Voltar para as Tarefas</a>
+</body>
+</html>

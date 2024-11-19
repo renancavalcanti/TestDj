@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tarefas</title>
+</head>
+<body>
+    <h1>Tarefas</h1>
+    <a href="{% url 'create_task' %}">Adicionar Nova Tarefa</a>
+
+    <h2>Tarefas Criadas</h2>
+    <ul>
+        {% for task in created_tasks %}
+            <li>
+                {{ task.description }} - {% if task.done %}Feita{% else %}Pendente{% endif %}
+                {% if task.taskUid %}
+                    <form method="post" action="{% url 'mark_task_done' task.taskUid %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit">Marcar como Feita</button>
+                    </form>
+                    <form method="post" action="{% url 'delete_task' task.taskUid %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit">Deletar</button>
+                    </form>
+                {% else %}
+                    <span>ID da tarefa não disponível</span>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>Sem tarefas criadas.</li>
+        {% endfor %}
+    </ul>
+    
+
+    <h2>Tarefas Atribuídas</h2>
+    <ul>
+        {% for task in assigned_tasks %}
+            <li>
+                {{ task.description }} - {% if task.done %}Feita{% else %}Pendente{% endif %}
+                <!-- <form method="post" action="{% url 'mark_task_done' task.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Marcar como Feita</button>
+                </form>
+                <form method="post" action="{% url 'delete_task' task.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Deletar</button>
+                </form> -->
+            </li>
+        {% empty %}
+            <li>Sem tarefas atribuídas.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
